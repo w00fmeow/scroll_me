@@ -1,0 +1,8 @@
+{
+  "HOT_KEYS": {
+    "START_SCROLLING": "ctrl + shift + < + >",
+    "TERMINATE_PROGRAM": "ctrl + shift + k + l"
+  }
+  "SLEEP_TIME_BETWEEN_SCROLLS": 1.5,
+  "CLICKS_TO_SCROLL": 3
+}
