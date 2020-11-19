@@ -40,13 +40,13 @@ class ScrollMe(object):
                 assert "TERMINATE_PROGRAM" in c["HOT_KEYS"]
                 assert "SLEEP_TIME_BETWEEN_SCROLLS" in c
                 assert "CLICKS_TO_SCROLL" in c
-                assert c["SLEEP_TIME_BETWEEN_SCROLLS"] == int(c["SLEEP_TIME_BETWEEN_SCROLLS"])
-                assert c["CLICKS_TO_SCROLL"] == int(c["PIXELS_TO_SCROLL"])
+                assert isinstance(c["SLEEP_TIME_BETWEEN_SCROLLS"], int) or isinstance(c["SLEEP_TIME_BETWEEN_SCROLLS"], float)
+                assert isinstance(c["CLICKS_TO_SCROLL"], int) or isinstance(c["CLICKS_TO_SCROLL"], float)
                 assert 0.1 <= c["SLEEP_TIME_BETWEEN_SCROLLS"] <= 999
                 assert 0.1 <= c["CLICKS_TO_SCROLL"]
                 return c
         except Exception as e:
-            logging.error("There was an error loading config file")
+            logging.error("There was an error loading config file {}".format(e))
             config = {}
             config["HOT_KEYS"] = {
                 "START_SCROLLING": self.DEFAULT_START_SCROLLING_HOTKEY,
@@ -76,7 +76,7 @@ class ScrollMe(object):
         logging.info("press {} to activate".format(self.config["HOT_KEYS"]["START_SCROLLING"]))
         logging.info("press {} to terminate program".format(self.config["HOT_KEYS"]["TERMINATE_PROGRAM"]))
         logging.info("Move the mouse to stop scrolling")
-
+        
         keyboard.add_hotkey(self.config["HOT_KEYS"]["START_SCROLLING"], lambda: self.status_change())
         keyboard.add_hotkey(self.config["HOT_KEYS"]["TERMINATE_PROGRAM"], lambda: self.exit())
         while self._running:
